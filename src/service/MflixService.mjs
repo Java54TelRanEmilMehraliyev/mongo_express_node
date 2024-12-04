@@ -8,6 +8,8 @@ export default class MflixService {
         this.#connection = new MongoConnection(uri, dbName);
         this.#moviesCollection = this.#connection.getCollection(moviesCollection);
         this.#commentsCollection = this.#connection.getCollection(commentsCollection);
+        console.log("Movies collection:", this.#moviesCollection);
+        console.log("Comments collection:", this.#commentsCollection); 
 
     }
     shutdown() {
@@ -29,6 +31,9 @@ export default class MflixService {
     }
     async deleteComment(id) {
         const toDeleteComment = await this.getComment(id)
+        if(!toDeleteComment){
+            throw {code:404, text:"comment not found"};
+        }
         await this.#commentsCollection.deleteOne({"_id":toDeleteComment._id});
         return toDeleteComment;
     }
