@@ -20,7 +20,7 @@ const mflixService = new MflixService(
 const commentsController = new CommentsController(mflixService);
 
 app.use(express.json());
-app.use("/mflix/comments", commentsController.router);
+app.use("/sample_mflix/comments", commentsController.router);
 
 
 app.use(errorHandler);
